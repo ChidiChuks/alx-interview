@@ -1,30 +1,35 @@
 #!/usr/bin/python3
 """
-Script that computes a minimum operations
-needed in a CopyAll - Paste task
+Script that computes a minimum operation
+check all
 """
 
 
 def minOperations(n):
-    """
-    Method for computing the minimum number
-    of operations for task Copy All and Paste
-    Args:
-        n: input value
-    Return: the sum of the operations
-    """
-    if n < 2:
-        return 0
-    factor_sum = 0
-    i = 2  # Start with the first prime number
-    while n > 1:
-        if n % i == 0:
-            factor_sum += i
-            n //= i  # Use integer division
-        else:
-            i += 1
-    return factor_sum
+    if n <= 1:
+        return n
 
-# Example usage
-result = minOperations(12)
-print("Minimum operations:", result)
+    operations = 0
+    clipboard = 1  # Initialize clipboard with one 'H'
+    total_H = 1    # Initially, there's one 'H' in the file
+
+    while total_H < n:
+        if n % total_H == 0:
+            # If the number of 'H' needed is a multiple of the current total_H,
+            # perform Copy All operation to duplicate the current sequence
+            operations += 1
+            clipboard = total_H
+            total_H *= 2
+        else:
+            # Paste from clipboard
+            operations += 1
+            total_H += clipboard
+
+    return operations
+
+# Example usage:
+n = 9
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+
+n = 12
+print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
