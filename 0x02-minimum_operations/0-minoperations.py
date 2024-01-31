@@ -4,27 +4,25 @@ Script that computes a minimum operations
 needed in a CopyAll - Paste task
 """
 
-
 def minOperations(n):
-    """
-    Method for computing the minimum number
-    of operations for task Copy All and Paste
-    Args:
-        n: input value
-    Return: the sum of the operations
-    """
-    if n < 2:
+    if n <= 1:
         return 0
-    factor_sum = 0
-    i = 2  # Start with the first prime number
-    while n > 1:
-        if n % i == 0:
-            factor_sum += i
-            n //= i  # Use integer division
-        else:
-            i += 1
-    return factor_sum
 
-# Example usage
-result = minOperations(12)
-print("Minimum operations:", result)
+    operations = 0
+    divisor = 2
+
+    while n > 1:
+        if n % divisor == 0:
+            n //= divisor
+            operations += divisor
+        else:
+            divisor += 1
+
+    return operations
+
+# Example usage:
+n = 9
+print("Min number of operations to reach {} char: {}".format(n, minOperations(n)))
+
+n = 12
+print("Min number of operations to reach {} char: {}".format(n, minOperations(n)))
