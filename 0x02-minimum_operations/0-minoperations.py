@@ -1,28 +1,29 @@
 #!/usr/bin/python3
+
 """
-Script that computes a minimum operations
-needed in a CopyAll - Paste task
+    Method that determines the number of minmum operations given n characters
 """
+
 
 def minOperations(n):
-    if n <= 1:
-        return 0
+    """
+        A function that calculates the fewest number of operations
+        needed to give a result of exactly n H characters in a file
+        args: n: Number of characters to be displayed
+        return:
+               number of min operations
+    """
 
-    operations = 0
-    divisor = 2
-
-    while n > 1:
-        if n % divisor == 0:
-            n //= divisor
-            operations += divisor
+    now = 1
+    start = 0
+    counter = 0
+    while now < n:
+        remainder = n - now
+        if (remainder % now == 0):
+            start = now
+            now += start
+            counter += 2
         else:
-            divisor += 1
-
-    return operations
-
-# Example usage:
-n = 9
-print("Min number of operations to reach {} char: {}".format(n, minOperations(n)))
-
-n = 12
-print("Min number of operations to reach {} char: {}".format(n, minOperations(n)))
+            now += start
+            counter += 1
+    return counter
